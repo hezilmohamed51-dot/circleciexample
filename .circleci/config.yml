@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello from CircleCI"
-
+      - run: echo "hi"
 workflows:
   hello-workflow:
     jobs:
