@@ -1,62 +1,14 @@
-from pymongo import MongoClient
+version: 2.1
 
-# ===============================
-# ===============================
-client = MongoClient("mongodb+srv://hezilmohamed51_db_user:<db_password>@cluster0.aep6xkl.mongodb.net/?appName=Cluster0")
-db = client["fire_system"]
+jobs:
+  hello-job:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: echo "Hello from CircleCI"
 
-# ===============================
-
-# ===============================
-customers = db["customers"]
-extinguishers = db["extinguishers"]
-services = db["services"]
-invoices = db["invoices"]
-receipts = db["receipts"]
-contracts = db["contracts"]
-logs = db["logs"]
-
-# ===============================
-
-# ===============================
-contracts.drop()
-logs.drop()
-
-# ===============================
-# ===============================
-customers.insert_many([
-    {"id": "C001", "name": "Ahmed", "phone": "05555555", "type": "individual"},
-    {"id": "C002", "name": "TechnoCorp", "phone": "06666666", "type": "company"},
-    {"id": "C003", "name": "Mourad", "phone": "07777777", "type": "individual"},
-    {"id": "C004", "name": "Sami", "phone": "08888888", "type": "individual"},
-    {"id": "C005", "name": "AlphaTech", "phone": "09999999", "type": "company"},
-    {"id": "C006", "name": "BetaCorp", "phone": "06661111", "type": "company"}
-])
-
-extinguishers.insert_many([
-    {"id": "E001", "customer_id": "C001", "type": "CO2", "last_service": "2025-01-10", "next_service": "2025-07-10"},
-    {"id": "E002", "customer_id": "C002", "type": "Powder", "last_service": "2025-02-01", "next_service": "2025-08-01"},
-    {"id": "E003", "customer_id": "C003", "type": "Water", "last_service": "2025-03-01", "next_service": "2025-09-01"},
-    {"id": "E004", "customer_id": "C004", "type": "CO2", "last_service": "2025-03-05", "next_service": "2025-09-05"},
-    {"id": "E005", "customer_id": "C005", "type": "Powder", "last_service": "2025-03-10", "next_service": "2025-09-10"},
-    {"id": "E006", "customer_id": "C006", "type": "Foam", "last_service": "2025-03-15", "next_service": "2025-09-15"}
-])
-
-services.insert_many([
-    {"id": "S001", "extinguisher_id": "E001", "service_type": "refill", "date": "2025-01-10", "price": 800},
-    {"id": "S002", "extinguisher_id": "E002", "service_type": "maintenance", "date": "2025-02-01", "price": 1500},
-    {"id": "S003", "extinguisher_id": "E003", "service_type": "refill", "date": "2025-03-01", "price": 900},
-    {"id": "S004", "extinguisher_id": "E004", "service_type": "maintenance", "date": "2025-03-05", "price": 1200},
-    {"id": "S005", "extinguisher_id": "E005", "service_type": "inspection", "date": "2025-03-10", "price": 700},
-    {"id": "S006", "extinguisher_id": "E006", "service_type": "refill", "date": "2025-03-15", "price": 1000}
-])
-
-invoices.insert_many([
-    {"id": "I001", "customer_id": "C002", "services": ["S002"], "total": 1500, "date": "2025-02-01", "status": "paid"}
-])
-
-receipts.insert_many([
-    {"id": "R001", "customer_id": "C001", "services": ["S001"], "total": 800, "date": "2025-01-10"}
-])
-
-print("Setup done! All collections created and initial data added.")
+workflows:
+  hello-workflow:
+    jobs:
+      - hello-job
