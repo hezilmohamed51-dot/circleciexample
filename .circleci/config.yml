@@ -1,14 +1,19 @@
 version: 2.1
 
 jobs:
-  hello-job:
+  test:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:18.17
     steps:
       - checkout
-      - run: echo "Hello from CircleCI"
-      - run: echo "hi"
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run unit tests
+          command: npm test
+
 workflows:
-  hello-workflow:
+  task_manager_pipeline:
     jobs:
-      - hello-job
+      - test
