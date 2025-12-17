@@ -8,8 +8,7 @@ jobs:
       - checkout
       - run:
           name: Say Hello
-          command: echo "Hello from CircleCI"
-          command: echo "Hi"
+          
 
 
 workflows:
