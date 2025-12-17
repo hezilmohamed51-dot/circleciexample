@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Say Hello
-          command: echo "Hello from CircleCI"
+          name: Force Failure
+          command: exit 1
 
 workflows:
   hello-workflow:
