@@ -8,6 +8,8 @@ jobs:
       - checkout
       - run:
           name: Force Failure
+          command: echo "Hello from CircleCI"
+
 
 workflows:
   hello-workflow:
