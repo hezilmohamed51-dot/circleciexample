@@ -6,14 +6,10 @@ jobs:
       - image: cimg/node:18.17
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Run unit tests
-          command: npm test
+      - run: npm install
+      - run: npm test
 
 workflows:
-  task_manager_pipeline:
+  demo_workflow:
     jobs:
       - test
